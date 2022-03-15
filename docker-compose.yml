@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  vuejs:
+    image: node:16-alpine3.11
+    volumes:
+      - ./front:/app
+    working_dir: /app
+    command: npm run serve
+    ports:
+      - 8080:8080
