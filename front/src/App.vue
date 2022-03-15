@@ -1,10 +1,59 @@
 <template>
-    Front
+    <h1>Indice de fragilité numérique</h1>
+
+    <div class="flex w-100 mt-3">
+        <div class="left">
+            <h2>Recherche</h2>
+
+            <label for="iMunicipalities">Communes</label>
+            <input type="text" v-model="municipality" list="municipalities" id="iMunicipalities">
+            <datalist id="municipalities">
+                <option v-for="municipality in departments">{{ municipality }}</option>
+            </datalist>
+
+            <label for="iRegions" class="mt-1">Régions</label>
+            <input type="text" v-model="region" list="regions" id="iRegions">
+            <datalist id="regions">
+                <option v-for="region in regions">{{ region }}</option>
+            </datalist>
+
+            <label for="iDepartments" class="mt-1">Départements</label>
+            <input type="text" v-model="department" list="departments" id="iDepartments">
+            <datalist id="departments">
+                <option v-for="department in departments">{{ department }}</option>
+            </datalist>
+
+            <button class="mt-1" @click="search">Chercher</button>
+        </div>
+
+        <div class="right">
+            <div v-if="result.length">
+                <h2>Résultat</h2>
+                Hello
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
 export default {
   name: 'App',
+    data() {
+        return {
+            region: '',
+            regions: [],
+            department: '',
+            departments: [],
+            municipality: '',
+            municipalities: [],
+            result: [],
+        }
+    },
+    methods: {
+        search() {
+            console.log(this.municipality + " " + this.department + " " + this.region);
+        }
+    },
 }
 </script>
 
@@ -13,8 +62,45 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+h1 {
+    text-align: center;
+}
+
+input {
+    width: fit-content;
+}
+
+.flex {
+    display: flex;
+}
+
+.mt-1 {
+    margin-top: 25px;
+}
+
+.mt-3 {
+    margin-top: 75px;
+}
+
+.left {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.right {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.w-100 {
+    width: 100%;
 }
 </style>
