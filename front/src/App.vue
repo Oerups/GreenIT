@@ -52,7 +52,51 @@ export default {
     methods: {
         search() {
             console.log(this.municipality + " " + this.department + " " + this.region);
+            this.result = ['result'];
+
+            const values = {region: this.region, department: this.department, municipality : this.municipality}
+
+            fetch(`http://localhost:3000/api`, {
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                },
+                method: "GET",
+            })
+                .then((res) => {
+                    if (res.ok) {
+                        return res.json();
+                    }
+                })
+                .then((data) => {
+                    this.result = data;
+                })
+                .catch(() => {
+                    console.log("Error");
+                })
         }
+    },
+    beforeMount() {
+        fetch(`http://localhost:3000/api`, {
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            method: "GET"
+        })
+            .then((res) => {
+                if (res.ok) {
+                    return res.json()
+                }
+            })
+            .then((data) => {
+                this.regions = data.regions;
+                this.departments = data.departments;
+                this.municipalities = data.municipalities;
+            })
+            .catch(() => {
+                console.log("Error");
+            })
     },
 }
 </script>
