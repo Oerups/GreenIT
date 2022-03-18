@@ -26,9 +26,9 @@ func getData(filename string) map[string][]string {
 			break
 		}
 		splited := strings.Split(line, ";")
-		regions = append(regions, splited[3])
-		departments = append(departments, splited[1])
-		municipalities = append(municipalities, splited[0])
+		regions = append(regions, splited[5])
+		departments = append(departments, splited[4])
+		municipalities = append(municipalities, splited[3])
 	}
 
 	//create map with regions and departments and municipalities
@@ -42,15 +42,15 @@ func getData(filename string) map[string][]string {
 
 func search(regions string, departments string, municipalities string) []map[string]string {
 	if municipalities != "" {
-		return findDataLine("data.csv", municipalities, 0)
+		return findDataLine("data.csv", municipalities, 3)
 	}
 
 	if departments != "" {
-		return findDataLine("data.csv", departments, 1)
+		return findDataLine("data.csv", departments, 4)
 	}
 
 	if regions != "" {
-		return findDataLine("data.csv", regions, 3)
+		return findDataLine("data.csv", regions, 5)
 	}
 
 	return nil
