@@ -51,12 +51,9 @@ export default {
     },
     methods: {
         search() {
-            console.log(this.municipality + " " + this.department + " " + this.region);
-            this.result = ['result'];
-
             const values = {region: this.region, department: this.department, municipality : this.municipality}
 
-            fetch(`http://localhost:3000/api`, {
+            fetch(`http://localhost:3000/api` + new URLSearchParams(values), {
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json"
