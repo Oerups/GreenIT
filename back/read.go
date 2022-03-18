@@ -79,7 +79,7 @@ func findDataLine(filename string, needle string, index int) []map[string]string
 			//Create associative array from headers and splited
 			data := make(map[string]string)
 			for i := 0; i < len(headers); i++ {
-				data[strings.Trim(headers[i], "\n\r")] = strings.Trim(splited[i], "\n\r")
+				data[strings.Trim(strings.TrimSpace(headers[i]), "\n\r")] = strings.Trim(splited[i], "\n\r")
 			}
 			toReturn = append(toReturn, data)
 		}

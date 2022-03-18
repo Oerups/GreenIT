@@ -30,7 +30,15 @@
         <div class="right">
             <div v-if="result.length">
                 <h2>Résultat</h2>
-                Hello
+
+                <div style="margin-top: 10px;" v-for="(value, key) in result" :key="key">
+                    <div>Commune : {{ value["Libcom"] }}</div>
+                    <div>Score accès à l'information : </div>
+                    <div>Score accès aux interfaces numériques : </div>
+                    <div>Score compétences administratives : </div>
+                    <div>Score compétences numériques : </div>
+                    <div>Score global : </div>
+                </div>
             </div>
         </div>
     </div>
@@ -53,7 +61,16 @@ export default {
     },
     methods: {
         search() {
-            const values = {region: this.region, department: this.department, municipality : this.municipality}
+            const values = {};
+            if(this.region != "") {
+                values.regions = this.region;
+            }
+            if(this.municipality != "") {
+                values.municipalities = this.municipality;
+            }
+            if(this.department != "") {
+                values.departments = this.department;
+            }
 
             fetch(`http://localhost:3000/search?` + new URLSearchParams(values), {
                 headers: {
