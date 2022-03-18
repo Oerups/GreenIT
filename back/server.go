@@ -7,17 +7,15 @@ import (
 func main() {
 	app := fiber.New()
 
-	app.Get("/departements", func(c *fiber.Ctx) error {
-		return c.JSON(getDepartements("data.csv"))
+	app.Get("/data", func(c *fiber.Ctx) error {
+		return c.JSON(getData("data.csv"))
 	})
-	app.Get("/communes", func(c *fiber.Ctx) error {
-		return c.JSON(getCommune("data.csv"))
-	})
-	app.Get("/regions", func(c *fiber.Ctx) error {
-		return c.JSON(getRegion("data.csv"))
-	})
-	app.Get("/:city", func(c *fiber.Ctx) error {
-		return c.JSON(findDataLine("data.csv", c.Params("city")))
+
+	app.Get("/search", func(c *fiber.Ctx) error {
+		regions := c.Query("regions")
+		departments := c.Query("departments")
+		municipalities := c.Query("municipalities")
+		return c.JSON(search(regions, departments, municipalities))
 	})
 
 	app.Listen(":3000")
