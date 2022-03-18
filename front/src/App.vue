@@ -1,4 +1,5 @@
 <template>
+<div>
     <h1>Indice de fragilité numérique</h1>
 
     <div class="flex w-100 mt-3">
@@ -8,19 +9,19 @@
             <label for="iMunicipalities">Communes</label>
             <input type="text" v-model="municipality" list="municipalities" id="iMunicipalities">
             <datalist id="municipalities">
-                <option v-for="municipality in departments">{{ municipality }}</option>
+                <option v-for="(value, key) in municipalities" :key="key">{{ value }}</option>
             </datalist>
 
             <label for="iRegions" class="mt-1">Régions</label>
             <input type="text" v-model="region" list="regions" id="iRegions">
             <datalist id="regions">
-                <option v-for="region in regions">{{ region }}</option>
+                <option v-for="(region, key) in regions" :key="key">{{ region }}</option>
             </datalist>
 
             <label for="iDepartments" class="mt-1">Départements</label>
             <input type="text" v-model="department" list="departments" id="iDepartments">
             <datalist id="departments">
-                <option v-for="department in departments">{{ department }}</option>
+                <option v-for="(department, key) in departments" :key="key">{{ department }}</option>
             </datalist>
 
             <button class="mt-1" @click="search">Chercher</button>
@@ -33,6 +34,7 @@
             </div>
         </div>
     </div>
+</div>
 </template>
 
 <script>
@@ -53,7 +55,7 @@ export default {
         search() {
             const values = {region: this.region, department: this.department, municipality : this.municipality}
 
-            fetch(`http://localhost:3000/api` + new URLSearchParams(values), {
+            fetch(`http://localhost:3000/search?` + new URLSearchParams(values), {
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json"
@@ -66,6 +68,7 @@ export default {
                     }
                 })
                 .then((data) => {
+                    console.log(data);
                     this.result = data;
                 })
                 .catch(() => {
@@ -74,7 +77,7 @@ export default {
         }
     },
     beforeMount() {
-        fetch(`http://localhost:3000/api`, {
+        fetch(`http://localhost:3000/data`, {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json"
@@ -90,9 +93,6 @@ export default {
                 this.regions = data.regions;
                 this.departments = data.departments;
                 this.municipalities = data.municipalities;
-            })
-            .catch(() => {
-                console.log("Error");
             })
     },
 }
