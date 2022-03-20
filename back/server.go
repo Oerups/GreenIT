@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"os"
 )
 
 func main() {
@@ -19,6 +20,6 @@ func main() {
 		municipalities := c.Query("municipalities")
 		return c.JSON(search(regions, departments, municipalities))
 	})
-
-	app.Listen(":3000")
+    port := os.Getenv("PORT")
+	app.Listen(":" + port)
 }

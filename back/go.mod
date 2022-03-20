@@ -1,4 +1,4 @@
-module greenit/back
+module greenit-back
 
 go 1.17
 
