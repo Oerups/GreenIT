@@ -2,6 +2,6 @@ build:
   docker:
     back: back/Dockerfile
 #    front: front/Dockerfile
-  run:
-    back:
-      command: go run read.go server.go
+run:
+  back:
+    command: go run read.go server.go
