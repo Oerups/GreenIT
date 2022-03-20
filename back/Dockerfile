@@ -1,6 +1,6 @@
 FROM heroku/heroku:20-build as build
 
-COPY ./back /app
+COPY . /app
 WORKDIR /app
 
 # Setup buildpack
