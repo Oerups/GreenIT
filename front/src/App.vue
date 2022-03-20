@@ -97,7 +97,7 @@ export default {
         values.departments = this.department;
       }
 
-      fetch(`https://safe-savannah-65741.herokuapp.com/search?` + new URLSearchParams(values), {
+      fetch(`http://localhost:3000/search?` + new URLSearchParams(values), {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json"

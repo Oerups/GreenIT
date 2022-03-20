@@ -1,21 +1,14 @@
-FROM heroku/heroku:20-build as build
+FROM golang:1.18
 
-COPY . /app
-WORKDIR /app
+WORKDIR /usr/src/app
 
-# Setup buildpack
-RUN mkdir -p /tmp/buildpack/heroku/go /tmp/build_cache /tmp/env
-RUN curl https://buildpack-registry.s3.amazonaws.com/buildpacks/heroku/go.tgz | tar xz -C /tmp/buildpack/heroku/go
+# pre-copy/cache go.mod for pre-downloading dependencies and only redownloading them in subsequent builds if they change
+COPY go.mod go.sum ./
+RUN go mod download && go mod verify
 
-#Execute Buildpack
-RUN STACK=heroku-20 /tmp/buildpack/heroku/go/bin/compile /app /tmp/build_cache /tmp/env
+COPY . .
+RUN go build -v -o /usr/local/bin/app ./...
 
-# Prepare final, minimal image
-FROM heroku/heroku:20
+EXPOSE 8080
 
-COPY --from=build /app /app
-ENV HOME /app
-WORKDIR /app
-RUN useradd -m heroku
-USER heroku
-CMD /app/bin/greenit-back
+CMD ["go", "run", "read.go", "main.go"]
