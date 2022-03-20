@@ -1,11 +1,18 @@
 version: "3"
 
 services:
-  vuejs:
-    image: node:16-alpine3.11
-    volumes:
-      - ./front:/app
-    working_dir: /app
-    command: sh -c "npm i && npm run serve"
+  front:
+    build: ./front
+#    image: node:16-alpine3.11
+#    volumes:
+#      - ./front:/app
+#    working_dir: /app
+#    command: sh -c "npm i && npm run serve"
     ports:
       - 8080:8080
+  back:
+    build: ./back
+#    command: go run read.go server.go
+    ports:
+      - 3000:3000
+
