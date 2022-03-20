@@ -11,5 +11,5 @@ RUN go build -v -o /usr/local/bin/app ./...
 
 #EXPOSE $PORT
 
-CMD ["go", "run", "read.go", "server.go"]
+#CMD ["go", "run", "read.go", "server.go"]
 
