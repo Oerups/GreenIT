@@ -6,6 +6,6 @@ COPY . /app
 
 RUN sh -c "npm i && npm run build"
 
-EXPOSE 8080
+#EXPOSE $PORT
 
 CMD ["npm", "run", "serve"]

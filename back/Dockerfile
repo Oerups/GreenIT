@@ -9,7 +9,7 @@ RUN go mod download && go mod verify
 COPY . .
 RUN go build -v -o /usr/local/bin/app ./...
 
-EXPOSE 3000
+#EXPOSE $PORT
 
 CMD ["go", "run", "read.go", "server.go"]
 
