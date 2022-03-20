@@ -3,5 +3,4 @@ build:
     back: back/Dockerfile
 #    front: front/Dockerfile
 run:
-  back:
-    command: go run read.go server.go
+  back: go run read.go server.go
